@@ -6,6 +6,9 @@ const args = process.argv.slice(2);
 console.log('Args:', args);
 
 // Edge case: We need at least 2 arguments.
+if (args.length < 2) {
+  console.log("Please enter at least 2 arguments");
+}
 
 // create an accumulator
 let total = 0;
