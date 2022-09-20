@@ -7,7 +7,11 @@ console.log('Args:', args);
 
 // Edge case: We need at least 2 arguments.
 if (args.length < 2) {
-  console.log("Please enter at least 2 arguments");
+  console.log('Please enter at least 2 arguments');
+  // stop the execution
+  // what's the purpose of a return => return a value outputted by a function => side effect => exiting the function.
+  // return;
+  process.exit(); // <= reveal my intent
 }
 
 // create an accumulator
@@ -17,12 +21,24 @@ let total = 0;
 for (let arg of args) {
   // add the arg (string) to the acculumator => typecast the arg into a number
   //
-  total += Number(arg);
-  console.log('arg:', arg, 'total:', total, 'type:', typeof arg);
+  // Edge case: If any argument is not a whole number, skip it.
+  // Number(arg) % 1 === 0
+  // isInteger
+
+  const convertedNb = Number(arg);
+
+  if (Number.isInteger(convertedNb)) {
+    total += convertedNb;
+    console.log('arg:', arg, 'total:', total);
+  }
+
+  // Edge case: If any argument is not a number, output an error message.
+
+  if (isNaN(convertedNb)) {
+    console.log('Please enter only numbers');
+    process.exit();
+  }
 }
 
-// Edge case: If any argument is not a whole number, skip it.
-// Edge case: If any argument is not a number, output an error message.
-
 // print the total
-console.log("Total:", total);
+console.log('Total:', total);
