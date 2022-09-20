@@ -14,31 +14,37 @@ if (args.length < 2) {
   process.exit(); // <= reveal my intent
 }
 
-// create an accumulator
-let total = 0;
+const sum = function (numbers) {
+  // create an accumulator
+  let total = 0;
 
-// iterate through the arguments
-for (let arg of args) {
-  // add the arg (string) to the acculumator => typecast the arg into a number
-  //
-  // Edge case: If any argument is not a whole number, skip it.
-  // Number(arg) % 1 === 0
-  // isInteger
+  // iterate through the arguments
+  for (let arg of numbers) {
+    // add the arg (string) to the acculumator => typecast the arg into a number
+    // Edge case: If any argument is not a whole number, skip it.
+    // Number(arg) % 1 === 0
+    // isInteger
 
-  const convertedNb = Number(arg);
+    const convertedNb = Number(arg);
 
-  if (Number.isInteger(convertedNb)) {
-    total += convertedNb;
-    console.log('arg:', arg, 'total:', total);
+    // purpose skip the float (5.5) but still display the total
+    if (Number.isInteger(convertedNb)) {
+      total += convertedNb;
+      console.log('arg:', arg, 'total:', total);
+    }
+
+    // Edge case: If any argument is not a number, output an error message.
+
+    // catch the non numbers and throw an error => stop => not displaying the total
+    if (isNaN(convertedNb)) {
+      console.log('Please enter only numbers');
+      process.exit();
+    }
   }
 
-  // Edge case: If any argument is not a number, output an error message.
+  return total;
+};
 
-  if (isNaN(convertedNb)) {
-    console.log('Please enter only numbers');
-    process.exit();
-  }
-}
-
+const result = sum(args);
 // print the total
-console.log('Total:', total);
+console.log('Total:', result);
